@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>MyTasks — Enhanced To-Do App</title>
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="page-bg"></div>
+
+  <main class="app">
+    <header class="topbar">
+      <div class="brand">
+        <h1>MyTasks</h1>
+        <p class="tag">Focus • Plan • Ship</p>
+      </div>
+
+      <div class="top-actions">
+        <div class="progress-wrap" title="Tasks completed">
+          <label class="sr-only">Overall progress</label>
+          <div id="overall-progress" class="progress">
+            <div class="progress-fill" style="width:0%"></div>
+          </div>
+          <small id="progress-text">0%</small>
+        </div>
+
+        <button id="theme-toggle" class="icon-btn" aria-label="Toggle theme">🌙</button>
+      </div>
+    </header>
+
+    <!-- Input bar -->
+    <section class="panel input-panel">
+      <form id="task-form" class="task-form" autocomplete="off">
+        <input id="task-input" type="text" placeholder="Add a new task..." required />
+        <select id="task-category">
+          <option value="General">General</option>
+          <option value="Work">Work</option>
+          <option value="Study">Study</option>
+          <option value="Personal">Personal</option>
+        </select>
+
+        <input id="task-date" type="date" aria-label="Due date" />
+        <select id="task-priority" aria-label="Priority">
+          <option value="Low">Low</option>
+          <option value="Medium" selected>Medium</option>
+          <option value="High">High</option>
+        </select>
+
+        <button type="submit" class="btn add">Add</button>
+      </form>
+
+      <div class="controls">
+        <input id="search" type="search" placeholder="Search tasks..." />
+        <select id="filter-status">
+          <option value="all">All</option>
+          <option value="pending">Pending</option>
+          <option value="completed">Completed</option>
+          <option value="overdue">Overdue</option>
+        </select>
+
+        <select id="filter-category">
+          <option value="all">All categories</option>
+          <option value="General">General</option>
+          <option value="Work">Work</option>
+          <option value="Study">Study</option>
+          <option value="Personal">Personal</option>
+        </select>
+
+        <select id="sort-by">
+          <option value="created_desc">Newest</option>
+          <option value="date_asc">Due date ↑</option>
+          <option value="date_desc">Due date ↓</option>
+          <option value="priority_desc">Priority</option>
+        </select>
+      </div>
+    </section>
+
+    <!-- Tasks grid/list -->
+    <section class="panel tasks-panel">
+      <ul id="task-list" class="task-list" aria-live="polite"></ul>
+
+      <div id="empty" class="empty">
+        <svg width="64" height="64" viewBox="0 0 24 24" aria-hidden="true">
+          <path fill="currentColor" d="M9 3h6v2H9zM6 7h12v12a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V7z"/>
+        </svg>
+        <p>No tasks yet — add your first task ✨</p>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <small>Saved locally · Reminders use your browser (permission required)</small>
+    </footer>
+  </main>
+
+  <template id="task-template">
+    <li class="task" draggable="true">
+      <div class="left">
+        <button class="check icon-btn" aria-label="Toggle complete">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
+        </button>
+        <div class="meta">
+          <div class="title-wrap">
+            <div class="title" contenteditable="false"></div>
+            <span class="badge category"></span>
+            <span class="badge priority"></span>
+            <span class="due"></span>
+          </div>
+          <div class="subtext">
+            <small class="created">Created</small>
+          </div>
+        </div>
+      </div>
+
+      <div class="right">
+        <div class="task-progress">
+          <div class="task-progress-fill" style="width:0%"></div>
+        </div>
+
+        <div class="actions">
+          <button class="expand icon-btn" title="Open subtasks">↕️</button>
+          <button class="edit icon-btn" title="Edit">✏️</button>
+          <button class="delete icon-btn" title="Delete">🗑️</button>
+        </div>
+      </div>
+
+      <div class="expand-panel hidden">
+        <div class="subtasks">
+          <ul class="subtask-list"></ul>
+          <div class="subtask-add">
+            <input class="subtask-input" placeholder="Add subtask..." />
+            <button class="btn small add-sub">Add</button>
+          </div>
+        </div>
+      </div>
+    </li>
+  </template>
+
+  <script src="script.js" defer></script>
+</body>
+</html>
+
